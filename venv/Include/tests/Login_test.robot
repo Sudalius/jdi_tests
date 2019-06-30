@@ -1,6 +1,7 @@
 *** Settings ***
 Library            Selenium2Library
-Suite Setup
+Variables          Variables/Variables.py
+Variables          Elements/Elements.py
 Suite Teardown     Close All Browsers
 
 *** Test Cases ***
@@ -13,18 +14,18 @@ Login test
 
 *** Keywords ***
 Go to JDI page
-    Open Browser    https://jdi-testing.github.io/jdi-light        chrome
+    Open Browser    ${URL}        chrome
     Maximize Browser Window
 
 Click User Icon
-    Click Element  xpath=//*[contains(@class, 'profile-photo')]
+    Click Element    ${user_icon}
 
 Setup Username And Password
-    Input Text     id=name           Roman
-    Input Text     id=password       Jdi1234
+    Input Text     ${username_selector}          ${username}
+    Input Text     ${username_password}          ${password}
 
 Click Enter button
-    Click Button   id=login-button
+    Click Button   ${login_button_selector}
 
 Check authorization has been successful
-    Element Text Should Be    id=user-name    ROMAN IOVLEV
+    Element Text Should Be    ${username_icon_text_selector}   ${expected_user_text}
